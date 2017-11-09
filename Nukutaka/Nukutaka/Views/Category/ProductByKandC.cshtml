@@ -1,9 +1,10 @@
 ﻿@using Nukutaka.Models;
 @model List<PRODUCT>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "ProductByKandC";
     Layout = "~/Views/Shared/_LayoutLeft.cshtml";
 }
+
 <div class="features_items">
     <!--features_items-->
     <h2 class="title text-center">Features Items</h2>
@@ -24,15 +25,16 @@
                                 <p>@item.NAME</p>
                             </a>
                             @using (Html.BeginForm("AddCart", "Cart"))
-                            { 
-                                    <input type="hidden" id="iQuantity" name="iQuantity" min="1" value="1" />
+                            {
+                                <input type="hidden" id="iQuantity" name="iQuantity" min="1" value="1" />
                                     <input type="hidden" id="code" name="code" value="@item.CODE" />
                                     <input type="hidden" id="urlCurrent" name="urlCurrent" value="@Request.Url.ToString()" />
                                     <button type="submit" href="#" class="btn btn-default add-to-cart">
                                         <i class="fa fa-shopping-cart"></i>
                                         Add to cart
                                     </button>
-                            }                           
+                            }      
+
                         </div>
 
                     </div>
@@ -47,4 +49,3 @@
         }
     }
 </div>
-

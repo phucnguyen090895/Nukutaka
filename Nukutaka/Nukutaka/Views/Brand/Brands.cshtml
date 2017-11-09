@@ -1,0 +1,27 @@
+﻿@using Nukutaka.Models;
+@model List<BRAND>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Brands</title>
+</head>
+<body>
+    <div class="brands-name">
+        <ul class="nav nav-pills nav-stacked">
+            @{
+                foreach (var item in Model)
+                {
+                    <li><a href="@Url.Action("ProductByBrand","Brand", new { @code = item.CODE})" value="@item.CODE"> <span class="pull-right">(@Html.Action("CountProduct", "Brand", new {@code = item.CODE }))</span>@item.NAME</a></li>
+
+                }
+            }
+        </ul>
+    </div>
+</body>
+</html>

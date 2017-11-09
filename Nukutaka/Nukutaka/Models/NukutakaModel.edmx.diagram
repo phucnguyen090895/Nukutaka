@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ea5cec4f7d424ae2bb5cc14cdaa646ca" Name="Diagram1">
+        <EntityTypeShape EntityType="NukutakaModel.PRODUCT" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NukutakaModel.CATEGORY" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="NukutakaModel.BRAND" Width="1.5" PointX="5.75" PointY="1" />
+        <EntityTypeShape EntityType="NukutakaModel.ADMIN" Width="1.5" PointX="3.75" PointY="3.75" />
+        <EntityTypeShape EntityType="NukutakaModel.INVOICE_DETAILS" Width="1.5" PointX="5.75" PointY="3.75" />
+        <EntityTypeShape EntityType="NukutakaModel.KIND" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="NukutakaModel.STAFF" Width="1.5" PointX="4.75" PointY="6.75" />
+        <EntityTypeShape EntityType="NukutakaModel.sysdiagram" Width="1.5" PointX="6.75" PointY="6.75" />
+        <EntityTypeShape EntityType="NukutakaModel.TRANSPORT" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NukutakaModel.INVOICE" Width="1.5" PointX="0.75" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

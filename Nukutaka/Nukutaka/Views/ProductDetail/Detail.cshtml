@@ -1,0 +1,77 @@
+﻿@using Nukutaka.Models;
+@model PRODUCT
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_LayoutLeft.cshtml";
+}
+<div class="product-details">
+    <!--product-details-->
+    <div class="col-sm-5">
+        <div class="view-product">
+            <img src="~/@Model.IMAGEURL" alt="" />
+            <h3>ZOOM</h3>
+        </div>
+        <div id="similar-product" class="carousel slide" data-ride="carousel">
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <a href=""><img src="~/images/product-details/similar1.jpg" alt=""></a>
+                    <a href=""><img src="~/images/product-details/similar2.jpg" alt=""></a>
+                    <a href=""><img src="~/images/product-details/similar3.jpg" alt=""></a>
+                </div>
+                <div class="item">
+                    <a href=""><img src="~/images/product-details/similar1.jpg" alt=""></a>
+                    <a href=""><img src="~/images/product-details/similar2.jpg" alt=""></a>
+                    <a href=""><img src="~/images/product-details/similar3.jpg" alt=""></a>
+                </div>
+                <div class="item">
+                    <a href=""><img src="~/images/product-details/similar1.jpg" alt=""></a>
+                    <a href=""><img src="~/images/product-details/similar2.jpg" alt=""></a>
+                    <a href=""><img src="~/images/product-details/similar3.jpg" alt=""></a>
+                </div>
+
+            </div>
+
+            <!-- Controls -->
+            <a class="left item-control" href="#similar-product" data-slide="prev">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <a class="right item-control" href="#similar-product" data-slide="next">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+
+    </div>
+    <div class="col-sm-7">
+        <div class="product-information">
+            <!--/product-information-->
+        @if (Model.STATUS == 0)
+        {
+            <img src="~/images/product-details/Out-of-stock3.jpg" class="newarrival" alt="" />
+        }
+            <h2>@Model.NAME</h2>
+            <p>@Model.CODE</p>
+            <img src="~/images/product-details/rating.png" alt="" />
+        @using (Html.BeginForm("AddCart", "Cart"))
+        {    
+            <span>
+                <span>@Model.PRICE đ</span>
+                    <label>Số lượng:</label>
+                    <input type="number" id="iQuantity" name="iQuantity" min="1" value="1"/>
+                    <input type="hidden" id="code"name="code" value="@Model.CODE" />
+                    <input type="hidden" id="urlCurrent"name="urlCurrent" value="@Request.Url.ToString()" />
+                    <button type="submit" class="btn btn-fefault cart">
+                        <i class="fa fa-shopping-cart"></i>
+                        Add to cart
+                    </button>                          
+            </span>
+        }
+            <p><b>Thời trang:</b> @ViewBag.CategoryName</p>
+            <p><b>Loại:</b> @ViewBag.KindName</p>
+            <p><b>Thương hiệu:</b> @ViewBag.BrandName</p>
+            <a href=""><img src="~/images/product-details/share.png" class="share img-responsive" alt="" /></a>
+        </div><!--/product-information-->
+    </div>
+</div>
+

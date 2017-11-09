@@ -1,0 +1,113 @@
+﻿@using Nukutaka.Models;
+@model List<CartModel>
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Shopping Cart</li>
+            </ol>
+        </div>
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Item</td>
+                        <td class="description"></td>
+                        <td class="price">Price</td>
+                        <td class="quantity">Quantity</td>
+                        <td class="total">Total</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="cart_product">
+                                    <a href=""><img src="~/@item.imageURL" alt=""></a>
+                                </td>
+                                <td class="cart_description">
+                                    <h4><a href="">@item.productName</a></h4>
+                                    <p>Web ID: @item.productCode</p>
+                                </td>
+                                <td class="cart_price">
+                                    <p>@String.Format("{0:0,0}", item.price)</p>
+                                </td>
+                                <td class="cart_quantity">
+                                    <div class="cart_quantity_button">
+                                        <input class="cart_quantity_input" type="text" name="quantity" value="@item.quantity" autocomplete="off" size="2">
+                                    </div>
+                                </td>
+                                <td class="cart_total">
+                                    <p class="cart_total_price">@String.Format("{0:0,0}", item.total)</p>
+                                </td>
+                                <td class="cart_delete">
+                                    <a class="cart_quantity_delete" href="@Url.Action("DeleteCart", "Cart", new { @code = item.productCode })"><i class="fa fa-times"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                        <td colspan="2">
+                            <table class="table table-condensed total-result">
+                                <tr class="shipping-cost">
+                                    <td>Tổng số lượng</td>
+                                    <td>@ViewBag.TotalQuantity</td>
+                                </tr>
+                                <tr>
+                                    <td>Tổng tiền</td>
+                                    <td><span>@ViewBag.TotalPrice đ</span></td>
+                                </tr>
+                            </table>
+                            <a class="btn btn-default update" href="">Update</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<section id="do_action">
+    <div class="container">
+        <div class="heading">
+            <h3>NHẬP THÔNG TIN KHÁCH HÀNG</h3>
+            <p>Nhập chính xác thông tin các nhân để nhận được sớm nhất có thể!</p>
+            
+        </div>
+        <div class="row">
+            @using (Html.BeginForm("InsertCart", "Cart"))
+            {              
+                <div><form></form></div>
+                <div class="col-sm-6">
+                    <div class="shopper-info">
+                        <p>Thông tin cá nhân</p>
+                        <form>
+                            <input type="text" placeholder="Họ và tên" name="txtName">
+                            <input type="text" placeholder="Số điện thoại" name="txtPhone">
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="shopper-info">
+                        <p>Địa chỉ</p>
+                        <form>
+                            <input type="text" placeholder="Số nhà" name="txtSonha">
+                            <input type="text" placeholder="Xã/Phường" name="txtXaphuong">
+                            <input type="text" placeholder="Thị xã/Thành phố" name="txtThixa">
+                            <input type="text" placeholder="Tỉnh" name="txtTinh">
+                        </form>                     
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">ABC</button>
+            }
+        </div>
+    </div>
+</section>

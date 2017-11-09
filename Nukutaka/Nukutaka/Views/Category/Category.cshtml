@@ -1,0 +1,37 @@
+﻿@using Nukutaka.Models;
+@model List<CATEGORY>
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Category</title>
+</head>
+<body>
+    <div class="panel-group category-products" id="accordian">
+        <!--category-productsr-->
+        @{
+            foreach (var item in Model)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a value="@item.CODE" href="@Url.Action("ProductByCategory", "Category", new {@code = item.CODE })">@item.NAME</a>
+                            <a data-toggle="collapse" data-parent="#accordian" href="#@item.CODE">
+                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                            </a>
+                        </h4>
+                    </div>
+                   @Html.Action("KindByCategory", "Category", new {@code = item.CODE})
+                </div>
+            }
+        }
+    </div>
+</body>
+</html>

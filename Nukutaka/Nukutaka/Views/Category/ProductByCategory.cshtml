@@ -1,13 +1,14 @@
-﻿@using Nukutaka.Models;
+﻿@using Nukutaka.Models
 @model List<PRODUCT>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "ProductByCategory";
     Layout = "~/Views/Shared/_LayoutLeft.cshtml";
 }
+
 <div class="features_items">
     <!--features_items-->
     <h2 class="title text-center">Features Items</h2>
-    @if (Model.Count == 0)
+    @if(Model.Count == 0)
     {
         <h2 style="font-family:'Roboto',sans-serif;font-size: 18px;text-align:center">SẢN PHẨM ĐANG ĐƯỢC CẬP NHẬT</h2>
     }
@@ -24,15 +25,16 @@
                                 <p>@item.NAME</p>
                             </a>
                             @using (Html.BeginForm("AddCart", "Cart"))
-                            { 
-                                    <input type="hidden" id="iQuantity" name="iQuantity" min="1" value="1" />
+                            {
+                                <input type="hidden" id="iQuantity" name="iQuantity" min="1" value="1" />
                                     <input type="hidden" id="code" name="code" value="@item.CODE" />
                                     <input type="hidden" id="urlCurrent" name="urlCurrent" value="@Request.Url.ToString()" />
                                     <button type="submit" href="#" class="btn btn-default add-to-cart">
                                         <i class="fa fa-shopping-cart"></i>
                                         Add to cart
                                     </button>
-                            }                           
+                            }      
+
                         </div>
 
                     </div>
@@ -47,4 +49,6 @@
         }
     }
 </div>
+
+
 

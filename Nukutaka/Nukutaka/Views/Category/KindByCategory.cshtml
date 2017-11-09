@@ -1,0 +1,30 @@
+﻿@using Nukutaka.Models;
+@model List<KIND>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>KindByCategory</title>
+</head>
+<body>
+
+    <div id="@ViewBag.CodeCategory" class="panel-collapse collapse">
+        <div class="panel-body">
+            <ul>
+                @{
+                    foreach (var item in Model)
+                    {
+                        <li><a href="@Url.Action("ProductByKandC", "Category", new {@codeCategory = item.CODECATEGORY, @codeKind = item.CODE})">@item.NAME</a></li>
+                    }
+                }
+            </ul>
+
+        </div>
+    </div>
+</body>
+</html>
