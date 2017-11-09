@@ -1,5 +1,5 @@
 ﻿create database Nukutaka
-
+go
 USE Nukutaka
 GO
 CREATE TABLE PRODUCTS(
