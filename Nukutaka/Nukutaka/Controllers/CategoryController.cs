@@ -4,33 +4,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using PagedList.Mvc;
 
 namespace Nukutaka.Controllers
 {
     public class CategoryController : Controller
     {
         NukutakaEntities db = new NukutakaEntities();
-        CategoryModel model = new CategoryModel();
         // GET: Category
+        //[ChildActionOnly]
         public PartialViewResult Category()
         {           
-            return PartialView(model.ListCatagory());
+            return PartialView(db.CATEGORies.ToList());
         }
 
-        public ActionResult ProductByCategory(string code)
+        public ActionResult ProductByCategory(string code, int? page)
         {
-            return View(model.ListProductByCategory(code));
+            int pageSize = 9;
+            int pageNum = (page ?? 1);
+            var list = db.PRODUCTS.Where(n => n.CODECATEGORY == code).OrderByDescending(n => n.PRICE).ToPagedList(pageNum, pageSize);
+            return View(list);
         }
-        
+
+        [ChildActionOnly]
         public ActionResult KindByCategory(string code)
         {
+
             ViewBag.CodeCategory = code;
-            return View(model.ListKindByCategory(code));
+            var list = db.KINDs.Where(n => n.CODECATEGORY == code).ToList();
+            return View(list);
         }
 
-        public ActionResult ProductByKandC(string codeCategory, string codeKind)
+        public ActionResult ProductByKandC(string codeCategory, string codeKind, int? page)
         {
-            return View(model.ListProductByKindandCate(codeCategory, codeKind));
+            int pageSize = 9;
+            int pageNum = (page ?? 1);
+            var list = db.PRODUCTS.Where(n => n.CODECATEGORY == codeCategory && n.CODEKIND == codeKind).OrderByDescending(n => n.PRICE).ToPagedList(pageNum, pageSize);
+            return View(list);
         }
         
     }

@@ -17,11 +17,12 @@ namespace Nukutaka.Models
         public int ID { get; set; }
         public string CODE { get; set; }
         public string NAMECUSTOMER { get; set; }
-        public Nullable<int> PHONECUSTOMER { get; set; }
+        public string PHONECUSTOMER { get; set; }
         public string ADDRESS { get; set; }
         public Nullable<System.DateTime> ORDERDATE { get; set; }
         public Nullable<System.DateTime> SHIPPINGDATE { get; set; }
         public Nullable<System.DateTime> DELIVERYDATE { get; set; }
+        public string SHIPPER { get; set; }
         public Nullable<int> STATUS { get; set; }
     }
 }

@@ -19,7 +19,7 @@
                     <div class="single-products">
                         <div class="productinfo text-center">
                             <a href="@Url.Action("Detail", "ProductDetail", new {@id = item.ID})">
-                                <img src="~/@item.IMAGEURL" alt="" />
+                                <img src="~/images/products/@item.IMAGEURL" alt="@item.NAME" height="249" width="268"/>
                                 <h2>@item.PRICE</h2>
                                 <p>@item.NAME</p>
                             </a>
@@ -34,7 +34,7 @@
                                     </button>
                             }                           
                         </div>
-
+                        <img src="~/images/home/new.png" class="new" alt="" />
                     </div>
                     <div class="choose">
                         <ul class="nav nav-pills nav-justified">

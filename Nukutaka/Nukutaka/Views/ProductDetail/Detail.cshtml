@@ -8,7 +8,7 @@
     <!--product-details-->
     <div class="col-sm-5">
         <div class="view-product">
-            <img src="~/@Model.IMAGEURL" alt="" />
+            <img src="~/images/products/@Model.IMAGEURL" alt="@Model.NAME" height="381" width="266"/>
             <h3>ZOOM</h3>
         </div>
         <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -46,7 +46,7 @@
     <div class="col-sm-7">
         <div class="product-information">
             <!--/product-information-->
-        @if (Model.STATUS == 0)
+        @if (Model.INSTOCK == 0)
         {
             <img src="~/images/product-details/Out-of-stock3.jpg" class="newarrival" alt="" />
         }
@@ -60,7 +60,7 @@
                     <label>Số lượng:</label>
                     <input type="number" id="iQuantity" name="iQuantity" min="1" value="1"/>
                     <input type="hidden" id="code"name="code" value="@Model.CODE" />
-                    <input type="hidden" id="urlCurrent"name="urlCurrent" value="@Request.Url.ToString()" />
+                    <input type="hidden" id="urlCurrent" name="urlCurrent" value="@Request.Url.ToString()" />
                     <button type="submit" class="btn btn-fefault cart">
                         <i class="fa fa-shopping-cart"></i>
                         Add to cart

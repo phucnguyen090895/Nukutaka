@@ -14,10 +14,34 @@ namespace Nukutaka
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+               name: "Category Page 404",
+               url: "Category/Category",
+               defaults: new { controller = "Home", action = "Page404", id = UrlParameter.Optional }
+           );
+
+            routes.MapRoute(
+               name: "Brand Page 404",
+               url: "Brand/Brands",
+               defaults: new { controller = "Home", action = "Page404", id = UrlParameter.Optional }
+           );
+
+            routes.MapRoute(
+             name: "Count Page 404",
+             url: "Brand/CountProduct",
+             defaults: new { controller = "Home", action = "Page404", id = UrlParameter.Optional }
+         );
+
+            routes.MapRoute(
+               name: "HomePage",
+               url: "home-page",
+               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+           );
+ 
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+            );       
         }
     }
 }

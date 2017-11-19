@@ -3,26 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Nukutaka.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace Nukutaka.Controllers
 {
     public class BrandController : Controller
     {
-        BrandModel model = new BrandModel();
+        NukutakaEntities db = new NukutakaEntities();
         // GET: Brand
-        public ActionResult ProductByBrand(string code)
+        public ActionResult ProductByBrand(string code, int? page)
         {
-            return View(model.ListProductByBrand(code));
+            int pageSize = 9;
+            int pageNum = (page ?? 1);
+            var listProducts = db.PRODUCTS.Where(n => n.CODEBRAND == code).OrderByDescending(n => n.PRICE).ToPagedList(pageNum, pageSize);
+            return View(listProducts);
         }
 
         public ActionResult Brands()
         {
-            return View(model.ListBrand());
+            return View(db.BRANDS.ToList());
         }
 
+        //[ChildActionOnly]
         public ActionResult CountProduct(string code)
         {
-            var countProduct = model.countProduct(code).Count();
+            var countProduct = db.PRODUCTS.Where(n => n.CODEBRAND == code).Count();
             ViewBag.Count = countProduct;
             return View();
         }

@@ -8,6 +8,7 @@ namespace Nukutaka.Models
     public class CartModel
     {
         NukutakaEntities db = new NukutakaEntities();
+        public int id { get; set; }
         public string productCode { get; set; }
         public string productName { get; set; }
         public string imageURL { get; set; }
@@ -22,6 +23,7 @@ namespace Nukutaka.Models
         {
             productCode = code;
             PRODUCT product = db.PRODUCTS.Single(n => n.CODE == productCode);
+            id = product.ID;
             productName = product.NAME;
             imageURL = product.IMAGEURL;
             price = double.Parse(product.PRICE.ToString());

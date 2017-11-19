@@ -1,0 +1,101 @@
+﻿@model Nukutaka.Models.PRODUCT
+@using Nukutaka.Models
+@{
+    ViewBag.Title = "AddProduct";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm("AddProduct", "MANProduct", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <br />
+        Thêm sản phẩm
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CODE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.CODE, new { htmlAttributes = new { @class = "form-control" } })        
+            </div>
+            @Html.ValidationMessageFor(model => model.CODE, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NAME, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.NAME, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.NAME, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PRICE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.PRICE, new { htmlAttributes = new { @class = "form-control", @Value = 0 , @min = 0}})            
+            </div>
+            @Html.ValidationMessageFor(model => model.PRICE, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IMAGEURL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+               <input type="file" name="fileUpLoadImg" class="form-control" />           
+            </div>
+            <span class="text-danger">@ViewBag.Error</span>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CODECATEGORY, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DropDownList("CATEGORY",null, new { @class = "form-control" })   
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CODEKIND, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DropDownList("KIND", null, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CODEBRAND, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DropDownList("BRAND", null, new { @class = "form-control" })                       
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STATUS, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+              @Html.DropDownList("STATUS", new List<SelectListItem>
+         {
+             new SelectListItem{Text = "Sản phẩm mới", Value = "1"},
+             new SelectListItem{Text = "Sản phẩm cũ", Value = "0"}
+         }, new {@class = "form-control"}
+         )             
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.INSTOCK, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DropDownList("INSTOCK", new List<SelectListItem>
+         {
+             new SelectListItem{Text = "Còn hàng", Value = "1"},
+             new SelectListItem{Text = "Hết hàng", Value = "0"}
+         }, new { @class = "form-control" }
+         )         
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Thêm mới" class="btn btn-primary" />
+                <a href="@Url.Action("Index")" class="btn btn-default" >Hủy</a>
+            </div>
+        </div>
+    </div>
+}

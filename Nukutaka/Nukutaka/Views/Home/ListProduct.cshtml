@@ -1,0 +1,56 @@
+﻿@using Nukutaka.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<PRODUCT>
+@{
+    ViewBag.Title = "ListProduct";
+    Layout = "~/Views/Shared/_LayoutLeft.cshtml";
+}
+
+<div class="features_items">
+    <!--features_items-->
+    <h2 class="title text-center">Features Items</h2>
+    @if (Model.Count == 0)
+    {
+        <h2 style="font-family:'Roboto',sans-serif;font-size: 18px;text-align:center">SẢN PHẨM ĐANG ĐƯỢC CẬP NHẬT</h2>
+    }
+    @{
+        foreach (var item in Model)
+        {
+            <div class="col-sm-4">
+                <div class="product-image-wrapper">
+                    <div class="single-products">
+                        <div class="productinfo text-center">
+                            <a href="@Url.Action("Detail", "ProductDetail", new {@id = item.ID})">
+                                <img src="~/images/products/@item.IMAGEURL" alt="" height="249" width="268" />
+                                <h2>@item.PRICE</h2>
+                                <p>@item.NAME</p>
+                            </a>
+                            @using (Html.BeginForm("AddCart", "Cart"))
+                            {
+                                <input type="hidden" id="iQuantity" name="iQuantity" min="1" value="1" />
+                                    <input type="hidden" id="code" name="code" value="@item.CODE" />
+                                    <input type="hidden" id="urlCurrent" name="urlCurrent" value="@Request.Url.ToString()" />
+                                    <button type="submit" href="#" class="btn btn-default add-to-cart">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        Add to cart
+                                    </button>
+                            }
+                        </div>
+                    </div>
+                    <div class="choose">
+                        <ul class="nav nav-pills nav-justified">
+                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    } 
+</div>
+<ul class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("ListProduct", new { page }))
+
+</ul>
+
+

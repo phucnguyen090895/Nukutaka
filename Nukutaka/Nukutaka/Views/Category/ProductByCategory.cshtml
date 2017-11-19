@@ -1,5 +1,6 @@
-﻿@using Nukutaka.Models
-@model List<PRODUCT>
+﻿@using Nukutaka.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<PRODUCT>
 @{
     ViewBag.Title = "ProductByCategory";
     Layout = "~/Views/Shared/_LayoutLeft.cshtml";
@@ -20,7 +21,7 @@
                     <div class="single-products">
                         <div class="productinfo text-center">
                             <a href="@Url.Action("Detail", "ProductDetail", new {@id = item.ID})">
-                                <img src="~/@item.IMAGEURL" alt="" />
+                                <img src="~/images/products/@item.IMAGEURL" alt="@item.NAME" height="249" width="268" />
                                 <h2>@item.PRICE</h2>
                                 <p>@item.NAME</p>
                             </a>
@@ -49,6 +50,11 @@
         }
     }
 </div>
+<ul class="pagination">
+@Html.PagedListPager(Model, page => Url.Action("ProductByCategory", new { page }))
+
+</ul>
+
 
 
 

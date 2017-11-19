@@ -38,11 +38,12 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CODE" Type="varchar" MaxLength="255" />
           <Property Name="NAMECUSTOMER" Type="nvarchar" MaxLength="255" />
-          <Property Name="PHONECUSTOMER" Type="int" />
+          <Property Name="PHONECUSTOMER" Type="varchar" MaxLength="255" />
           <Property Name="ADDRESS" Type="nvarchar" MaxLength="255" />
           <Property Name="ORDERDATE" Type="date" />
           <Property Name="SHIPPINGDATE" Type="date" />
           <Property Name="DELIVERYDATE" Type="date" />
+          <Property Name="SHIPPER" Type="varchar" MaxLength="255" />
           <Property Name="STATUS" Type="int" />
         </EntityType>
         <EntityType Name="INVOICE_DETAILS">
@@ -74,6 +75,7 @@
           <Property Name="CODECATEGORY" Type="varchar" MaxLength="255" />
           <Property Name="CODEBRAND" Type="varchar" MaxLength="255" />
           <Property Name="CODEKIND" Type="varchar" MaxLength="255" />
+          <Property Name="INSTOCK" Type="int" />
           <Property Name="STATUS" Type="int" />
         </EntityType>
         <EntityType Name="STAFF">
@@ -136,6 +138,7 @@
           <Property Name="CODEBRAND" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="CODEKIND" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="STATUS" Type="Int32" />
+          <Property Name="INSTOCK" Type="Int32" />
         </EntityType>
         <EntityContainer Name="NukutakaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="PRODUCTS" EntityType="Self.PRODUCT" />
@@ -230,11 +233,12 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="NAMECUSTOMER" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="PHONECUSTOMER" Type="Int32" />
+          <Property Name="PHONECUSTOMER" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="ADDRESS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ORDERDATE" Type="DateTime" Precision="0" />
           <Property Name="SHIPPINGDATE" Type="DateTime" Precision="0" />
           <Property Name="DELIVERYDATE" Type="DateTime" Precision="0" />
+          <Property Name="SHIPPER" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="STATUS" Type="Int32" />
         </EntityType>
       </Schema>
@@ -246,6 +250,7 @@
           <EntitySetMapping Name="PRODUCTS">
             <EntityTypeMapping TypeName="NukutakaModel.PRODUCT">
               <MappingFragment StoreEntitySet="PRODUCTS">
+                <ScalarProperty Name="INSTOCK" ColumnName="INSTOCK" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="CODEKIND" ColumnName="CODEKIND" />
                 <ScalarProperty Name="CODEBRAND" ColumnName="CODEBRAND" />
@@ -344,6 +349,7 @@
             <EntityTypeMapping TypeName="NukutakaModel.INVOICE">
               <MappingFragment StoreEntitySet="INVOICE">
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="SHIPPER" ColumnName="SHIPPER" />
                 <ScalarProperty Name="DELIVERYDATE" ColumnName="DELIVERYDATE" />
                 <ScalarProperty Name="SHIPPINGDATE" ColumnName="SHIPPINGDATE" />
                 <ScalarProperty Name="ORDERDATE" ColumnName="ORDERDATE" />
