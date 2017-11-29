@@ -29,11 +29,9 @@ namespace Nukutaka.Models
         public virtual DbSet<CATEGORY> CATEGORies { get; set; }
         public virtual DbSet<BRAND> BRANDS { get; set; }
         public virtual DbSet<ADMIN> ADMINs { get; set; }
-        public virtual DbSet<INVOICE_DETAILS> INVOICE_DETAILS { get; set; }
         public virtual DbSet<KIND> KINDs { get; set; }
         public virtual DbSet<STAFF> STAFFs { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<TRANSPORT> TRANSPORTs { get; set; }
         public virtual DbSet<INVOICE> INVOICEs { get; set; }
     }
 }

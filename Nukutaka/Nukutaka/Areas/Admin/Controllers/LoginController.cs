@@ -20,33 +20,42 @@ namespace Nukutaka.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Index(string phone, string password)
         {
+            if(phone == "&nbsp" || password == "")
+            {
+                ViewBag.Error = "Tài khoản hoặc mật khẩu không được bỏ trống";
+                return View();
+            }
             ADMIN ad = db.ADMINs.SingleOrDefault(n => n.PHONE == phone && n.PASSWORD == password);
             if (ad != null)
             {
                 Session["Admin"] = ad.CODE;
                 return RedirectToAction("Index", "MANProduct");
             }
-            return View();
+            else
+            {
+                ViewBag.Error = "Sai tài khoản hoặc mật khẩu";
+                return View();
+            }
         }
 
         [ChildActionOnly]
         public ActionResult NameSession()
         {
-            if(Session["Admin"] != null)
+            if (Session["Admin"] != null)
             {
                 var ss = Session["Admin"].ToString();
                 var ad = db.ADMINs.SingleOrDefault(n => n.CODE == ss);
                 // ADMIN ad = db.ADMINs.SingleOrDefault(n => n.CODE == ss);
                 ViewBag.NameAdmin = ad.NAME;
                 return View();
-                
+
             }
             else
             {
                 return RedirectToAction("Index", "Login");
             }
 
-           
+
         }
     }
 }

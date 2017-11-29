@@ -159,8 +159,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MANBrandController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MANCategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MANKindController.cs" />
     <Compile Include="Areas\Admin\Controllers\MANProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MANStaffController.cs" />
+    <Compile Include="Areas\Admin\Models\Metadata\BRAND.metadata.cs" />
+    <Compile Include="Areas\Admin\Models\Metadata\CATEGORY.metadata.cs" />
+    <Compile Include="Areas\Admin\Models\Metadata\KIND.metadata.cs" />
+    <Compile Include="Areas\Admin\Models\Metadata\STAFF.metadata.cs" />
     <Compile Include="Controllers\BrandController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ProductDetailController.cs" />
@@ -181,9 +190,6 @@
     </Compile>
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\INVOICE.cs">
-      <DependentUpon>NukutakaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\INVOICE_DETAILS.cs">
       <DependentUpon>NukutakaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\KIND.cs">
@@ -213,9 +219,6 @@
       <DependentUpon>NukutakaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>NukutakaModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TRANSPORT.cs">
       <DependentUpon>NukutakaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -386,12 +389,39 @@
     <Content Include="images\product-details\similar1.jpg" />
     <Content Include="images\product-details\similar2.jpg" />
     <Content Include="images\product-details\similar3.jpg" />
-    <Content Include="images\products\product1.jpg" />
-    <Content Include="images\products\product2.jpg" />
-    <Content Include="images\products\product3.jpg" />
-    <Content Include="images\products\product4.jpg" />
-    <Content Include="images\products\product5.jpg" />
-    <Content Include="images\products\product6.jpg" />
+    <Content Include="images\products\aokhoacnam2.jpg" />
+    <Content Include="images\products\aokhoacnu.jpg" />
+    <Content Include="images\products\aokhoacnu1.jpg" />
+    <Content Include="images\products\aothunnam1.jpg" />
+    <Content Include="images\products\aothunnam2.jpg" />
+    <Content Include="images\products\aothunnam3.jpg" />
+    <Content Include="images\products\aothunnam4.jpg" />
+    <Content Include="images\products\aothunnam5.jpg" />
+    <Content Include="images\products\aothunnu.jpg" />
+    <Content Include="images\products\aothunnu1.jpg" />
+    <Content Include="images\products\aothunnu2.jpg" />
+    <Content Include="images\products\quanjean.jpg" />
+    <Content Include="images\products\quanjean1.jpg" />
+    <Content Include="images\products\quanjean2.jpg" />
+    <Content Include="images\products\quankakinam.jpg" />
+    <Content Include="images\products\quankakinam1.jpg" />
+    <Content Include="images\products\quankakinam2.jpg" />
+    <Content Include="images\products\quanshort.jpg" />
+    <Content Include="images\products\quantaynam.jpg" />
+    <Content Include="images\products\quantaynam1.jpg" />
+    <Content Include="images\products\quantaynam2.jpg" />
+    <Content Include="images\products\taydainam.jpg" />
+    <Content Include="images\products\taydainam1.jpg" />
+    <Content Include="images\products\taydainam2.jpg" />
+    <Content Include="images\products\taydainam3.jpg" />
+    <Content Include="images\products\taydainam4.jpg" />
+    <Content Include="images\products\taydainam5.jpg" />
+    <Content Include="images\products\taydainam6.jpg" />
+    <Content Include="images\products\tayngannam1.jpg" />
+    <Content Include="images\products\tayngannam2.jpg" />
+    <Content Include="images\products\tayngannam3.jpg" />
+    <Content Include="images\products\tayngannam4.jpg" />
+    <Content Include="images\products\tayngannam5.jpg" />
     <Content Include="images\shop\advertisement.jpg" />
     <Content Include="images\shop\product10.jpg" />
     <Content Include="images\shop\product11.jpg" />
@@ -487,6 +517,19 @@
     <Content Include="Areas\Admin\Views\MANProduct\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Login\NameSession.cshtml" />
     <Content Include="Areas\Admin\Views\MANProduct\AddProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\MANProduct\UpdateProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\MANCategory\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\MANCategory\AddCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\MANCategory\UpdateCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\MANBrand\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\MANBrand\AddBrand.cshtml" />
+    <Content Include="Areas\Admin\Views\MANBrand\UpdateBrand.cshtml" />
+    <Content Include="Areas\Admin\Views\MANKind\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\MANKind\AddKind.cshtml" />
+    <Content Include="Areas\Admin\Views\MANKind\UpdateKind.cshtml" />
+    <Content Include="Areas\Admin\Views\MANStaff\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\MANStaff\AddStaff.cshtml" />
+    <Content Include="Areas\Admin\Views\MANStaff\UpdateStaff.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -535,6 +578,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\fontawesome-webfont.woff" />

@@ -17,8 +17,7 @@ namespace Nukutaka.Controllers
             var detail = model.Detail(id);
             if(detail == null)
             {
-                Response.StatusCode = 404;
-                return null;
+                return RedirectToAction("Page404", "Home");
 
             }
             ViewBag.CategoryName = db.CATEGORies.Single(n => n.CODE == detail.CODECATEGORY).NAME;

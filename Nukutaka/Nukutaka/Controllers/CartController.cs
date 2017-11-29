@@ -103,7 +103,7 @@ namespace Nukutaka.Controllers
             List<CartModel> listCart = getCart();
             ViewBag.TotalQuantity = TotalQuantity().ToString();
             ViewBag.TotalPrice = TotalPrice().ToString();
-            ViewBag.TT = "https://www.baokim.vn/payment/product/version11?business=phucnguyen090895%40gmail.com&id=&order_description=&product_name="+ codeInvoice + "&product_price=" + TotalPrice() + "&product_quantity=1&total_amount=" + TotalPrice() + "&url_cancel=&url_detail=&url_success=";
+            ViewBag.TT = "https://www.baokim.vn/payment/product/version11?business=phucnguyen090895%40gmail.com&id=&order_description=&product_name="+ codeInvoice + "&product_price=" + TotalPrice() + "&product_quantity=1&total_amount=" + TotalPrice() + "&url_cancel=http://localhost:53281&url_detail=&url_success=";
             return View(listCart);
         }
 
@@ -148,18 +148,9 @@ namespace Nukutaka.Controllers
             {
                 RedirectToAction("Index", "Home");
             }
-            //INSERT
-            INVOICE inv = new INVOICE();
-            inv.CODE = codeInvoice;
-            inv.NAMECUSTOMER = txtName;
-            inv.PHONECUSTOMER = txtPhone;
-            inv.ADDRESS = address;
-            inv.ORDERDATE = DateTime.Now;
-            inv.STATUS = 0;
-            db.INVOICEs.Add(inv);
-            db.SaveChanges();
-            List<CartModel> cart = getCart();
 
+            // JSON CART
+            List<CartModel> cart = getCart();
             JArray arr = new JArray();
             foreach (var item in cart)
             {
@@ -169,14 +160,20 @@ namespace Nukutaka.Controllers
                     new JProperty("price", item.price)
                     );
                 arr.Add(obj);
-
             }
 
-            INVOICE_DETAILS invDetail = new INVOICE_DETAILS();
-            invDetail.CODE = codeInvoice;
-            invDetail.PRODUCT = arr.ToString();
-            db.INVOICE_DETAILS.Add(invDetail);
+            //INSERT INTO DATABASE
+            INVOICE inv = new INVOICE();
+            inv.CODE = codeInvoice;
+            inv.NAMECUSTOMER = txtName;
+            inv.PHONECUSTOMER = txtPhone;
+            inv.ADDRESS = address;
+            inv.ORDERDATE = DateTime.Now;
+            inv.PRODUCT = arr.ToString();
+            inv.STATUS = 0;
+            db.INVOICEs.Add(inv);
             db.SaveChanges();
+
             Session["Cart"] = null;
             return RedirectToAction("Index", "Home");
             // return View();

@@ -4,15 +4,8 @@
     ViewBag.Title = "Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <section id="cart_items">
     <div class="container">
-        <div class="breadcrumbs">
-            <ol class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li class="active">Shopping Cart</li>
-            </ol>
-        </div>
         <div class="cart_info">
             <table class="table table-condensed">
                 <thead>
@@ -35,7 +28,7 @@
                                 </td>
                                 <td class="cart_description">
                                     <h4><a href="">@item.productName</a></h4>
-                                    <p>Web ID: @item.productCode</p>
+                                    <p>Mã sản phẩm: @item.productCode</p>
                                 </td>
                                 <td class="cart_price">
                                     <p>@String.Format("{0:0,0}", item.price)</p>
@@ -77,40 +70,65 @@
 </section>
 <section id="do_action">
     <div class="container">
-        <div class="heading">
-            <h3>NHẬP THÔNG TIN KHÁCH HÀNG</h3>
-            <p>Nhập chính xác thông tin các nhân để nhận được sớm nhất có thể!</p>
-
-        </div>
-        <div class="row">
-            @using (Html.BeginForm("InsertCart", "Cart"))
+        <h3>Hình thức thanh toán</h3>
+        <div class="panel-group category-products" id="accordian">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>
+                        <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
+                            Thanh toán truyền thống
+                        </a>
+                    </h4>
+                </div>
+                <div id="sportswear" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="heading">
+                            <h4>NHẬP THÔNG TIN KHÁCH HÀNG</h4>
+                            <p>Nhập chính xác thông tin cá nhân để nhận sự phản hồi từ chúng tôi sớm nhất.</p>
+                        </div>
+                        <div class="row">
+                            @using (Html.BeginForm("InsertCart", "Cart"))
             {
-                <div class="col-sm-6">
-                    <h4>Thông tin cá nhân</h4>
-                    <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" class="form-control" type="text" placeholder="Họ và tên" name="txtName">
-                    <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" class="form-control" type="text" placeholder="Số điện thoại" name="txtPhone">
-                    <h4>Hình thức thanh toán</h4>
-                    <p>
-                        <button type="submit" class="btn btn-primary">Xác nhận đơn hàng</button>
-                    </p>
-                    <p>
-                        HOẶC Thanh toán Online <br />
-                        <a href="@ViewBag.TT"><img src="http://www.baokim.vn/developers/uploads/baokim_btn/thanhtoan-l.png" alt="Thanh toán an toàn với Bảo Kim !" border="0" title="Thanh toán trực tuyến an toàn dùng tài khoản Ngân hàng (VietcomBank, TechcomBank, Đông Á, VietinBank, Quân Đội, VIB, SHB,... và thẻ Quốc tế (Visa, Master Card...) qua Cổng thanh toán trực tuyến BảoKim.vn"></a>
-                    </p>
+                                <div class="col-sm-6">
+                                    <h4>Thông tin cá nhân</h4>
+                                    <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" class="form-control" type="text" placeholder="Họ và tên" name="txtName">
+                                    <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" class="form-control" type="text" placeholder="Số điện thoại" name="txtPhone">                         
+                                </div>
+                                <div class="col-sm-6">
+                                    <h4>Địa chỉ</h4>
+                                    <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" type="text" placeholder="Số nhà" name="txtSonha">
+                                    <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" type="text" placeholder="Xã/Phường" name="txtXaphuong">
+                                    <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" type="text" placeholder="Thị xã/Thành phố" name="txtThixa">
+                                    <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" type="text" placeholder="Tỉnh" name="txtTinh">
+                                </div>
+                                <div class="col-sm-12">
+                                    <p>
+                                        <button type="submit" class="btn btn-primary">Xác nhận đơn hàng</button>
+                                    </p>
+                                </div>
+                            }
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <h4>Địa chỉ</h4>
-                    <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" type="text" placeholder="Số nhà" name="txtSonha">
-                    <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" type="text" placeholder="Xã/Phường" name="txtXaphuong">
-                    <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" type="text" placeholder="Thị xã/Thành phố" name="txtThixa">
-                    <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" type="text" placeholder="Tỉnh" name="txtTinh">
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>
+                        <a data-toggle="collapse" data-parent="#accordian" href="#mens">
+                            Thanh toán trực tuyến
+                        </a>
+                    </h4>
                 </div>
-                <div class="col-sm-12">
-
+                <div id="mens" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>
+                            <a href="@ViewBag.TT"><img src="http://www.baokim.vn/developers/uploads/baokim_btn/thanhtoan-l.png" alt="Thanh toán an toàn với Bảo Kim !" border="0" title="Thanh toán trực tuyến an toàn dùng tài khoản Ngân hàng (VietcomBank, TechcomBank, Đông Á, VietinBank, Quân Đội, VIB, SHB,... và thẻ Quốc tế (Visa, Master Card...) qua Cổng thanh toán trực tuyến BảoKim.vn"></a>
+                        </p>
+                    </div>
                 </div>
+            </div>
 
-
-            }
         </div>
     </div>
 </section>

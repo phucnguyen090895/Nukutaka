@@ -1,0 +1,125 @@
+﻿@model Nukutaka.Models.PRODUCT
+
+@{
+    ViewBag.Title = "UpdateProduct";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using (Html.BeginForm("UpdateProduct", "MANProduct", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <br />
+        <h4>Chỉnh sửa sản phẩm</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CODE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                <input value="@Model.CODE" disabled class="form-control" />
+                @Html.HiddenFor(model => model.CODE)            
+            </div>
+            @Html.ValidationMessageFor(model => model.CODE, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NAME, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.NAME, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.ValidationMessageFor(model => model.NAME, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PRICE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.PRICE, new { htmlAttributes = new { @class = "form-control", @min = 0 } })
+            </div>
+            @Html.ValidationMessageFor(model => model.PRICE, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IMAGEURL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                <img height="110" width="110" src="~/images/products/@Model.IMAGEURL" />
+                <input type="file" name="fileUpLoadImg" class="form-control" />
+                @Html.HiddenFor(model => model.IMAGEURL)                
+            </div>
+            <span class="text-danger">@ViewBag.Error</span>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CODECATEGORY, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DropDownListFor(model => model.CODECATEGORY, null, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CODEKIND, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DropDownListFor(model => model.CODEKIND, null, new { @class = "form-control" })
+               <!-- Html.DropDownList("KIND", null, new { class = "form-control" })-->
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CODEBRAND, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DropDownListFor(model => model.CODEBRAND, null, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STATUS, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DropDownList("STATUS", new List<SelectListItem>
+         {
+             new SelectListItem{Text = "Sản phẩm mới", Value = "1"},
+             new SelectListItem{Text = "Sản phẩm cũ", Value = "0"}
+         }, new { @class = "form-control" }
+         )
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.INSTOCK, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DropDownList("INSTOCK", new List<SelectListItem>
+         {
+             new SelectListItem{Text = "Còn hàng", Value = "1"},
+             new SelectListItem{Text = "Hết hàng", Value = "0"}
+         }, new { @class = "form-control" }
+         )
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <input type="button" value="Xóa" class="btn btn-danger" data-toggle="modal" data-target="#@Model.ID" onclick="deleteStart(this)" />
+                <a href="@Url.Action("Index")" class="btn btn-default">Hủy</a>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="@Model.ID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Xóa sản phẩm</h4>
+                </div>
+                <div class="modal-body">
+                    <span style="font-size: 20px">Bạn chắc chắn muốn xóa @Model.NAME ?</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="deleteStopped(this)" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" onclick="location.href='@Url.Action("DeleteProduct", new {id = Model.ID })'" class="btn btn-danger">Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

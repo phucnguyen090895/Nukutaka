@@ -22,6 +22,7 @@ namespace Nukutaka.Models
             [DisplayName("TÊN SẢN PHẨM")]
             public string NAME { get; set; }
 
+            [Required(ErrorMessage = "Đơn giá không được bỏ trống")]
             [DisplayName("ĐƠN GIÁ")]
             [Range(0, Int32.MaxValue)]
             public Nullable<int> PRICE { get; set; }

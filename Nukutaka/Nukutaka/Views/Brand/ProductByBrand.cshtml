@@ -8,7 +8,7 @@
 
 <div class="features_items">
     <!--features_items-->
-    <h2 class="title text-center">Features Items</h2>
+    <h2 class="title text-center">SẢN PHẨM</h2>
     @if (Model.Count == 0)
     {
         <h2 style="font-family:'Roboto',sans-serif;font-size: 18px;text-align:center">SẢN PHẨM ĐANG ĐƯỢC CẬP NHẬT</h2>
@@ -22,7 +22,7 @@
                         <div class="productinfo text-center">
                             <a href="@Url.Action("Detail", "ProductDetail", new {@id = item.ID})">
                                 <img src="~/images/products/@item.IMAGEURL" alt="@item.NAME" height="249" width="268" />
-                                <h2>@item.PRICE</h2>
+                                <h2>@String.Format("{0:0,0}", @item.PRICE)</h2>
                                 <p>@item.NAME</p>
                             </a>
                             @using (Html.BeginForm("AddCart", "Cart"))
@@ -32,7 +32,7 @@
                                     <input type="hidden" id="urlCurrent" name="urlCurrent" value="@Request.Url.ToString()" />
                                     <button type="submit" href="#" class="btn btn-default add-to-cart">
                                         <i class="fa fa-shopping-cart"></i>
-                                        Add to cart
+                                        Thêm vào giỏ
                                     </button>
                             }      
 

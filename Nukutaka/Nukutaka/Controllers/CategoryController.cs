@@ -32,7 +32,7 @@ namespace Nukutaka.Controllers
         {
 
             ViewBag.CodeCategory = code;
-            var list = db.KINDs.Where(n => n.CODECATEGORY == code).ToList();
+            var list = db.KINDs.Where(n => n.CODECATEGORY == code).OrderBy(n => n.NAME).ToList();
             return View(list);
         }
 

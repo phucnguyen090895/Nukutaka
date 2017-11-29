@@ -24,5 +24,6 @@ namespace Nukutaka.Models
         public Nullable<System.DateTime> DELIVERYDATE { get; set; }
         public string SHIPPER { get; set; }
         public Nullable<int> STATUS { get; set; }
+        public string PRODUCT { get; set; }
     }
 }

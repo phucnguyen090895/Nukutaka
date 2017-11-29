@@ -44,15 +44,8 @@
           <Property Name="SHIPPINGDATE" Type="date" />
           <Property Name="DELIVERYDATE" Type="date" />
           <Property Name="SHIPPER" Type="varchar" MaxLength="255" />
-          <Property Name="STATUS" Type="int" />
-        </EntityType>
-        <EntityType Name="INVOICE_DETAILS">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CODE" Type="varchar" MaxLength="255" />
           <Property Name="PRODUCT" Type="nvarchar(max)" />
+          <Property Name="STATUS" Type="int" />
         </EntityType>
         <EntityType Name="KIND">
           <Key>
@@ -97,29 +90,15 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <EntityType Name="TRANSPORT">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CODE" Type="varchar" MaxLength="255" />
-          <Property Name="CODEADMIN" Type="varchar" MaxLength="255" />
-          <Property Name="CODESTAFF" Type="varchar" MaxLength="255" />
-          <Property Name="STARTDATE" Type="date" />
-          <Property Name="ENDDATE" Type="date" />
-          <Property Name="STATUS" Type="int" />
-        </EntityType>
         <EntityContainer Name="NukutakaModelStoreContainer">
           <EntitySet Name="ADMIN" EntityType="Self.ADMIN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BRANDS" EntityType="Self.BRANDS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CATEGORY" EntityType="Self.CATEGORY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="INVOICE" EntityType="Self.INVOICE" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="INVOICE_DETAILS" EntityType="Self.INVOICE_DETAILS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KIND" EntityType="Self.KIND" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCTS" EntityType="Self.PRODUCTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="STAFF" EntityType="Self.STAFF" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TRANSPORT" EntityType="Self.TRANSPORT" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -145,11 +124,9 @@
           <EntitySet Name="CATEGORies" EntityType="NukutakaModel.CATEGORY" />
           <EntitySet Name="BRANDS" EntityType="NukutakaModel.BRAND" />
           <EntitySet Name="ADMINs" EntityType="NukutakaModel.ADMIN" />
-          <EntitySet Name="INVOICE_DETAILS" EntityType="NukutakaModel.INVOICE_DETAILS" />
           <EntitySet Name="KINDs" EntityType="NukutakaModel.KIND" />
           <EntitySet Name="STAFFs" EntityType="NukutakaModel.STAFF" />
           <EntitySet Name="sysdiagrams" EntityType="NukutakaModel.sysdiagram" />
-          <EntitySet Name="TRANSPORTs" EntityType="NukutakaModel.TRANSPORT" />
           <EntitySet Name="INVOICEs" EntityType="NukutakaModel.INVOICE" />
         </EntityContainer>
         <EntityType Name="CATEGORY">
@@ -177,14 +154,6 @@
           <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="PHONE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="PASSWORD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="INVOICE_DETAILS">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="PRODUCT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="KIND">
           <Key>
@@ -214,18 +183,6 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="TRANSPORT">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CODEADMIN" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CODESTAFF" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="STARTDATE" Type="DateTime" Precision="0" />
-          <Property Name="ENDDATE" Type="DateTime" Precision="0" />
-          <Property Name="STATUS" Type="Int32" />
-        </EntityType>
         <EntityType Name="INVOICE">
           <Key>
             <PropertyRef Name="ID" />
@@ -240,6 +197,7 @@
           <Property Name="DELIVERYDATE" Type="DateTime" Precision="0" />
           <Property Name="SHIPPER" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="STATUS" Type="Int32" />
+          <Property Name="PRODUCT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -292,15 +250,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="INVOICE_DETAILS">
-            <EntityTypeMapping TypeName="NukutakaModel.INVOICE_DETAILS">
-              <MappingFragment StoreEntitySet="INVOICE_DETAILS">
-                <ScalarProperty Name="PRODUCT" ColumnName="PRODUCT" />
-                <ScalarProperty Name="CODE" ColumnName="CODE" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="KINDs">
             <EntityTypeMapping TypeName="NukutakaModel.KIND">
               <MappingFragment StoreEntitySet="KIND">
@@ -332,22 +281,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TRANSPORTs">
-            <EntityTypeMapping TypeName="NukutakaModel.TRANSPORT">
-              <MappingFragment StoreEntitySet="TRANSPORT">
-                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
-                <ScalarProperty Name="ENDDATE" ColumnName="ENDDATE" />
-                <ScalarProperty Name="STARTDATE" ColumnName="STARTDATE" />
-                <ScalarProperty Name="CODESTAFF" ColumnName="CODESTAFF" />
-                <ScalarProperty Name="CODEADMIN" ColumnName="CODEADMIN" />
-                <ScalarProperty Name="CODE" ColumnName="CODE" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="INVOICEs">
             <EntityTypeMapping TypeName="NukutakaModel.INVOICE">
               <MappingFragment StoreEntitySet="INVOICE">
+                <ScalarProperty Name="PRODUCT" ColumnName="PRODUCT" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="SHIPPER" ColumnName="SHIPPER" />
                 <ScalarProperty Name="DELIVERYDATE" ColumnName="DELIVERYDATE" />
