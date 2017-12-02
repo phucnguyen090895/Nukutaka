@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\PhucNguyen\Source\Repos\Nukutaka\Nukutaka\Nukutaka\Models\NukutakaModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\PhucNguyen\source\repos\Nukutaka\Nukutaka\Nukutaka\Models\NukutakaModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

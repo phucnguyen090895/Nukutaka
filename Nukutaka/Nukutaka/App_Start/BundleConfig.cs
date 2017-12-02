@@ -25,7 +25,15 @@ namespace Nukutaka
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/bootstrap.min.css",
+                      "~/Content/font-awesome.min.css",
+                      "~/Content/prettyPhoto.css",
+                      "~/Content/price-range.css",
+                      "~/Content/animate.css",
+                      "~/Content/main.css",
+                      "~/Content/responsive.css",
+                      "~/Content/bootstrap.css",
+                      "~/Content/Site.css"));
         }
     }
 }

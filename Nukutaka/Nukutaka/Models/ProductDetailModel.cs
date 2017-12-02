@@ -10,7 +10,7 @@ namespace Nukutaka.Models
         NukutakaEntities db = new NukutakaEntities();
         public PRODUCT Detail(int id)
         {
-            return db.PRODUCTS.Find(id);
+            return db.PRODUCTS.SingleOrDefault(n => n.ID == id);
         }      
     }
 }

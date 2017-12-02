@@ -178,5 +178,10 @@ namespace Nukutaka.Controllers
             return RedirectToAction("Index", "Home");
             // return View();
         }
+
+        public ActionResult Success()
+        {
+            return View();
+        }
     }
 }
