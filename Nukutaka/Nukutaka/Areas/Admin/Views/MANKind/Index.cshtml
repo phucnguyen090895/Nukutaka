@@ -32,12 +32,14 @@
                     </thead>
                     <tbody>
                         @{
-                            NukutakaEntities db = new NukutakaEntities();
-                            foreach (var item in Model)
-                            {
+                                NukutakaEntities db = new NukutakaEntities();
+                                int stt = 0;
+                                foreach (var item in Model)
+                                {
+                                stt += 1;
                                 <tr>
                                     <td><input type="checkbox" /></td>
-                                    <td onclick="window.location='@Url.Action("UpdateKind", new {id = item.ID })'">1</td>
+                                    <td onclick="window.location='@Url.Action("UpdateKind", new {id = item.ID })'">@stt</td>
                                     <td onclick="window.location='@Url.Action("UpdateKind", new {id = item.ID })'">@item.CODE</td>
                                     <td onclick="window.location='@Url.Action("UpdateKind", new {id = item.ID })'">@item.NAME</td>
                                     <td onclick="window.location='@Url.Action("UpdateKind", new {id = item.ID })'">@db.CATEGORies.Single(n=>n.CODE == item.CODECATEGORY).NAME</td>
