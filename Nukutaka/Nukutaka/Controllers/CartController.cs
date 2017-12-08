@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Nukutaka.Models;
 using Newtonsoft.Json.Linq;
+using System.Data.SqlClient;
 
 namespace Nukutaka.Controllers
 {
@@ -99,11 +100,9 @@ namespace Nukutaka.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var codeInvoice = "HD" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
             List<CartModel> listCart = getCart();
             ViewBag.TotalQuantity = TotalQuantity().ToString();
             ViewBag.TotalPrice = TotalPrice().ToString();
-            ViewBag.TT = "https://www.baokim.vn/payment/product/version11?business=phucnguyen090895%40gmail.com&id=&order_description=&product_name="+ codeInvoice + "&product_price=" + TotalPrice() + "&product_quantity=1&total_amount=" + TotalPrice() + "&url_cancel=http://localhost:53281&url_detail=&url_success=";
             return View(listCart);
         }
 
@@ -140,10 +139,11 @@ namespace Nukutaka.Controllers
         //ADD INVOICE INTO DATABASE
         public ActionResult InsertCart(string txtName, string txtPhone, string txtSonha, string txtXaphuong, string txtThixa, string txtTinh)
         {
+            if (txtName.Trim() == null || txtName.Trim() == "" || txtName.Trim() == " " || txtPhone.Trim() == null || txtPhone.Trim() == "" || txtPhone.Trim() == " " || txtSonha.Trim() == null || txtSonha.Trim() == "" || txtSonha.Trim() == " " || txtXaphuong.Trim() == null || txtXaphuong.Trim() == "" || txtXaphuong.Trim() == " " || txtThixa.Trim() == null || txtThixa.Trim() == "" || txtThixa.Trim() == " " || txtTinh.Trim() == null || txtTinh.Trim() == "" || txtTinh.Trim() == " ")
+            {
+                return RedirectToAction("Cart", "Cart");
+            }
             var address = txtSonha + ", " + txtXaphuong + ", " + txtThixa + ", " + txtTinh;
-
-            var codeInvoice = "HD" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
-
             if (Session["Cart"] == null)
             {
                 RedirectToAction("Index", "Home");
@@ -164,24 +164,134 @@ namespace Nukutaka.Controllers
 
             //INSERT INTO DATABASE
             INVOICE inv = new INVOICE();
-            inv.CODE = codeInvoice;
+            inv.CODE = CodeInvoice();
             inv.NAMECUSTOMER = txtName;
             inv.PHONECUSTOMER = txtPhone;
             inv.ADDRESS = address;
             inv.ORDERDATE = DateTime.Now;
             inv.PRODUCT = arr.ToString();
-            inv.STATUS = 0;
+            inv.STATUS = 1;
+            inv.TYPE = 0;
             db.INVOICEs.Add(inv);
             db.SaveChanges();
 
             Session["Cart"] = null;
-            return RedirectToAction("Index", "Home");
-            // return View();
+            return RedirectToAction("Success");
+        }
+
+        public ActionResult OnlinePayment()
+        {
+            //CHECK SESSION EXIST
+            if (Session["Cart"] == null)
+            {
+                RedirectToAction("Index", "Home");
+            }
+            //GET CODE INVOICE
+            var codeInvoice = CodeInvoice();
+            var totalPrice = TotalPrice();
+
+            // JSON CART
+            List<CartModel> cart = getCart();
+            JArray arr = new JArray();
+            foreach (var item in cart)
+            {
+                JObject obj = new JObject(
+                    new JProperty("code", item.productCode),
+                    new JProperty("quantity", item.quantity),
+                    new JProperty("price", item.price)
+                    );
+                arr.Add(obj);
+            }
+
+            // INSERT DATABASE
+            INVOICE inv = new INVOICE();
+            inv.CODE = codeInvoice;
+            inv.PRODUCT = arr.ToString();
+            inv.ORDERDATE = DateTime.Now;
+            inv.STATUS = 0;
+            inv.TYPE = 1;
+            db.INVOICEs.Add(inv);
+            db.SaveChanges();
+            Session["Cart"] = null;
+            return Redirect("https://www.baokim.vn/payment/product/version11?business=phucnguyen090895%40gmail.com&id=&order_description=&product_name=" + codeInvoice + "&product_price=" + totalPrice + "&product_quantity=1&total_amount=" + totalPrice + "&url_cancel=http://nukutaka.azurewebsites.net/Cart/CancelPayment?code=" + codeInvoice + "&url_detail=&url_success=http://nukutaka.azurewebsites.net/Cart/SuccessPayment?code=" + codeInvoice + "");
         }
 
         public ActionResult Success()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult SuccessPayment(string code)
+        {
+            INVOICE inv = db.INVOICEs.SingleOrDefault(n => n.CODE == code);
+            return View(inv);
+        }
+
+        [HttpPost]
+        public ActionResult SuccessPayment(INVOICE inv, FormCollection f)
+        {
+            var name = f.Get("txtName");
+            var phone = f.Get("txtPhone");
+            var soNha = f.Get("txtSonha");
+            var xaPhuong = f.Get("txtXaphuong");
+            var thiXa = f.Get("txtThixa");
+            var tinh = f.Get("txtTinh");
+            var address = soNha + ", " + xaPhuong + ", " + thiXa + ", " + tinh;     
+
+            if (name.Trim() == null || name.Trim() == "" || name.Trim() == " " || phone.Trim() == null || phone.Trim() == "" || phone.Trim() == " ")
+            {
+                ViewBag.Error = "Hãy nhập đầy đủ thông tin cá nhân để được liên hệ sớm nhất";
+                return View(inv);
+            }
+
+            if (soNha.Trim() == null || soNha.Trim() == "" || soNha.Trim() == " " || xaPhuong.Trim() == null || xaPhuong.Trim() == "" || xaPhuong.Trim() == " " || thiXa.Trim() == null || thiXa.Trim() == "" || thiXa.Trim() == " " || tinh.Trim() == null || tinh.Trim() == "" || tinh.Trim() == " ")
+            {
+                ViewBag.Error = "Hãy nhập đầy đủ địa chỉ để được giao hàng nhanh nhất";
+                return View(inv);
+            }
+            int res = UpdateInfoInvoice(inv.CODE, name, phone, address);
+            if(res > 0)
+            {
+                return View("Success");
+            }
+            else
+            {
+                return View(inv);
+            }
+            
+        }
+
+        public ActionResult CancelPayment(string code)
+        {
+            INVOICE inv = db.INVOICEs.SingleOrDefault(n => n.CODE == code);
+            if (inv == null)
+            {
+                return RedirectToAction("Page404", "Home");
+            }
+            db.INVOICEs.Remove(inv);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+
+        public string CodeInvoice()
+        {
+            var codeInvoice = "HD" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString();
+            return codeInvoice;
+        }
+
+        public int UpdateInfoInvoice(string code, string name, string phone, string address)
+        {
+            object[] obj =
+            {
+                new SqlParameter("@P_CODE", code),
+                new SqlParameter("@P_NAMECUSTOMER", name),
+                new SqlParameter("@P_PHONECUSTOMER", phone),
+                new SqlParameter("@P_ADDRESS", address)
+            };
+            int res = db.Database.ExecuteSqlCommand("UPDATE_INFO_INVOICE @P_CODE, @P_NAMECUSTOMER, @P_PHONECUSTOMER, @P_ADDRESS", obj);
+            return res;
+
         }
     }
 }

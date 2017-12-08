@@ -20,7 +20,7 @@ namespace Nukutaka.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Index(string phone, string password)
         {
-            if(phone == "&nbsp" || password == "")
+            if(phone.Trim() == null || phone.Trim() == "" || phone.Trim() == " " || password.Trim() == null || password.Trim() == "" || password.Trim() == " ")
             {
                 ViewBag.Error = "Tài khoản hoặc mật khẩu không được bỏ trống";
                 return View();

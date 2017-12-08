@@ -1,0 +1,31 @@
+﻿@using Nukutaka.Models
+@model INVOICE
+@{
+    ViewBag.Title = "SuccessPayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        <input type="hidden" value="@Model.CODE" name="txtCode" />
+        <div class="col-sm-6">
+            <h4>Thông tin cá nhân</h4>
+            <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" class="form-control" type="text" placeholder="Họ và tên" name="txtName">
+            <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" class="form-control" type="text" placeholder="Số điện thoại" name="txtPhone">
+            @ViewBag.Error
+        </div>
+        <div class="col-sm-6">
+            <h4>Địa chỉ</h4>
+            <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" type="text" placeholder="Số nhà" name="txtSonha">
+            <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" type="text" placeholder="Xã/Phường" name="txtXaphuong">
+            <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" type="text" placeholder="Thị xã/Thành phố" name="txtThixa">
+            <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" type="text" placeholder="Tỉnh" name="txtTinh">
+        </div>
+        <div class="col-sm-12">
+            <p>
+                <button type="submit" class="btn btn-primary">Xác nhận đơn hàng</button>
+            </p>
+        </div>
+    }
+</div>

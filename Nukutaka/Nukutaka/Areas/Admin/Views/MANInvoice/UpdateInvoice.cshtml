@@ -1,0 +1,171 @@
+﻿@model Nukutaka.Models.INVOICE
+@using Newtonsoft.Json
+@using Nukutaka.Areas.Admin.Models
+@{
+    ViewBag.Title = "UpdateInvoice";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <br />
+        <h4>Cập nhật đơn hàng</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CODE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.CODE, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.CODE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NAMECUSTOMER, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.NAMECUSTOMER, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NAMECUSTOMER, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PHONECUSTOMER, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.PHONECUSTOMER, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PHONECUSTOMER, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ADDRESS, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.ADDRESS, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ADDRESS, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ORDERDATE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.ORDERDATE, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.ORDERDATE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SHIPPINGDATE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.SHIPPINGDATE, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.SHIPPINGDATE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DELIVERYDATE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.DELIVERYDATE, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.DELIVERYDATE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SHIPPER, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DropDownListFor(model => model.SHIPPER, null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SHIPPER, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STATUS, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DropDownList("STATUS", new List<SelectListItem>
+         {
+             new SelectListItem{Text = "Không hợp lệ", Value = "0"},
+             new SelectListItem{Text = "Hợp lệ", Value = "1"},
+             new SelectListItem{Text = "Đang vận chuyển", Value = "2"},
+             new SelectListItem{Text = "Đã nhận hàng", Value = "3"},
+         }, new { @class = "form-control" }
+         )
+                @Html.ValidationMessageFor(model => model.STATUS, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TYPE, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DropDownList("TYPE", new List<SelectListItem>
+         {
+             new SelectListItem{Text = "THANH TOÁN ZIPCODE", Value = "0"},
+             new SelectListItem{Text = "THANH TOÁN TRỰC TUYẾN", Value = "1"}
+         }, new { @class = "form-control" }
+         )
+                @Html.ValidationMessageFor(model => model.TYPE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PRODUCT, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.HiddenFor(model => model.PRODUCT)
+                @{
+                    var list = JsonConvert.DeserializeObject<List<ListProduct>>(Model.PRODUCT);
+                    int total = 0;
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Mã sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Đơn giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var obj in list)
+                            {
+                                total += (obj.quantity * Convert.ToInt32(obj.price));
+                                <tr>   
+                                    <td>@obj.code</td>
+                                    <td>@obj.quantity</td>
+                                    <td>@obj.price</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                    <span>Tổng tiền : @total đ</span>
+                }
+
+            </div>
+            @Html.ValidationMessageFor(model => model.PRODUCT, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <input type="button" value="Xóa" class="btn btn-danger" data-toggle="modal" data-target="#@Model.ID" onclick="deleteStart(this)" />
+                <a href="@Url.Action("Index")" class="btn btn-default">Hủy</a>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="@Model.ID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Xóa đơn hàng</h4>
+                </div>
+                <div class="modal-body">
+                    <span style="font-size: 20px">Bạn chắc chắn muốn xóa đơn hàng @Model.CODE ?</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="deleteStopped(this)" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
+                    <button type="button" onclick="location.href='@Url.Action("DeleteInvoice", new {id = Model.ID })'" class="btn btn-danger">Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+                    }

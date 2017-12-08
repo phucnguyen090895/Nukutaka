@@ -37,19 +37,20 @@
                     </thead>
                     <tbody>
                         @{
+                            NukutakaEntities db = new NukutakaEntities();
                             foreach (var item in Model)
                             {
                                 <tr>
                                     <td><input type="checkbox" /></td>
-                                    <td onclick="window.location='@Url.Action("UpdateProduct", new {id = item.ID })'">1</td>
-                                    <td onclick="window.location='@Url.Action("UpdateProduct", new {id = item.ID })'">@item.CODE</td>
-                                    <td onclick="window.location='@Url.Action("UpdateProduct", new {id = item.ID })'">@item.NAME</td>
-                                    <td onclick="window.location='@Url.Action("UpdateProduct", new {id = item.ID })'">@item.PRICE</td>
-                                    <td onclick="window.location='@Url.Action("UpdateProduct", new {id = item.ID })'">@item.CODECATEGORY</td>
-                                    <td onclick="window.location='@Url.Action("UpdateProduct", new {id = item.ID })'">@item.CODEKIND</td>
-                                    <td onclick="window.location='@Url.Action("UpdateProduct", new {id = item.ID })'">@item.CODEBRAND</td>
-                                    <td onclick="window.location='@Url.Action("UpdateProduct", new {id = item.ID })'">@item.INSTOCK</td>
-                                    <td onclick="window.location='@Url.Action("UpdateProduct", new {id = item.ID })'">@item.STATUS</td>
+                                    <td onclick="window.location='@Url.Action("UpdateProduct", new { id = item.ID })'">1</td>
+                                    <td onclick="window.location='@Url.Action("UpdateProduct", new { id = item.ID })'">@item.CODE</td>
+                                    <td onclick="window.location='@Url.Action("UpdateProduct", new { id = item.ID })'">@item.NAME</td>
+                                    <td onclick="window.location='@Url.Action("UpdateProduct", new { id = item.ID })'">@item.PRICE</td>
+                                    <td onclick="window.location='@Url.Action("UpdateProduct", new { id = item.ID })'">@db.CATEGORies.Single(n => n.CODE == item.CODECATEGORY).NAME</td>
+                                    <td onclick="window.location='@Url.Action("UpdateProduct", new { id = item.ID })'">@db.KINDs.Single(n => n.CODE == item.CODEKIND).NAME</td>
+                                    <td onclick="window.location='@Url.Action("UpdateProduct", new { id = item.ID })'">@db.BRANDS.Single(n => n.CODE == item.CODEBRAND).NAME</td>
+                                    <td onclick="window.location='@Url.Action("UpdateProduct", new { id = item.ID })'">@(item.INSTOCK == 0 ? "Hết hàng" : "Còn hàng")</td>
+                                    <td onclick="window.location='@Url.Action("UpdateProduct", new {id = item.ID })'">@(item.STATUS == 0 ? "SP Cũ" : "SP Mới")</td>
                                     <td>
                                             <a class="glyphicon glyphicon-remove" data-toggle="modal" data-target="#@item.ID" onclick="deleteStart(this)">
                                             </a>

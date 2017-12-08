@@ -32,6 +32,7 @@
                     </thead>
                     <tbody>
                         @{
+                            NukutakaEntities db = new NukutakaEntities();
                             foreach (var item in Model)
                             {
                                 <tr>
@@ -39,7 +40,7 @@
                                     <td onclick="window.location='@Url.Action("UpdateKind", new {id = item.ID })'">1</td>
                                     <td onclick="window.location='@Url.Action("UpdateKind", new {id = item.ID })'">@item.CODE</td>
                                     <td onclick="window.location='@Url.Action("UpdateKind", new {id = item.ID })'">@item.NAME</td>
-                                    <td onclick="window.location='@Url.Action("UpdateKind", new {id = item.ID })'">@item.CODECATEGORY</td>
+                                    <td onclick="window.location='@Url.Action("UpdateKind", new {id = item.ID })'">@db.CATEGORies.Single(n=>n.CODE == item.CODECATEGORY).NAME</td>
                                     <td>
                                         <a class="glyphicon glyphicon-remove" data-toggle="modal" data-target="#@item.ID" onclick="deleteStart(this)">
                                         </a>
@@ -50,7 +51,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                <h4 class="modal-title" id="myModalLabel">Xóa danh mục</h4>
+                                                <h4 class="modal-title" id="myModalLabel">Xóa loại sản phẩm</h4>
                                             </div>
                                             <div class="modal-body">
                                                 <span style="font-size: 20px">Bạn chắc chắn muốn xóa @item.NAME ?</span>

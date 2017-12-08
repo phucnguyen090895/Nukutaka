@@ -46,6 +46,7 @@
           <Property Name="SHIPPER" Type="varchar" MaxLength="255" />
           <Property Name="PRODUCT" Type="nvarchar(max)" />
           <Property Name="STATUS" Type="int" />
+          <Property Name="TYPE" Type="int" />
         </EntityType>
         <EntityType Name="KIND">
           <Key>
@@ -198,6 +199,7 @@
           <Property Name="SHIPPER" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="STATUS" Type="Int32" />
           <Property Name="PRODUCT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TYPE" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -284,6 +286,7 @@
           <EntitySetMapping Name="INVOICEs">
             <EntityTypeMapping TypeName="NukutakaModel.INVOICE">
               <MappingFragment StoreEntitySet="INVOICE">
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
                 <ScalarProperty Name="PRODUCT" ColumnName="PRODUCT" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="SHIPPER" ColumnName="SHIPPER" />

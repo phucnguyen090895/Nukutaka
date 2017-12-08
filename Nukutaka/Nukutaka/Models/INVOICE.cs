@@ -25,5 +25,6 @@ namespace Nukutaka.Models
         public string SHIPPER { get; set; }
         public Nullable<int> STATUS { get; set; }
         public string PRODUCT { get; set; }
+        public Nullable<int> TYPE { get; set; }
     }
 }

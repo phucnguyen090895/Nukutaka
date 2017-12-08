@@ -1,7 +1,38 @@
 ﻿
 @{
-    ViewBag.Title = "Success";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
+<!DOCTYPE html>
 
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Success</title>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container" style="text-align:center">
+        <h2 style="color:green; font-weight:bold">Bạn đã đặt hàng thành công</h2>
+        <h3>Chúng tôi sẽ liên hệ bạn sớm nhất có thể. Cám ơn bạn đã sử dụng dịch vụ của chúng tôi</h3>
+        <h3>Quay lại trang chủ sau <span id="counter">5</span>s.  Hoặc click @Html.ActionLink("Quay lại", "Index", "Home") để quay lại trang chủ</h3>
+        <img height="70%" width="90%" src="~/images/404/giao_hang.png" />
+    </div>
+</body>
+</html>
+<script>
+       var interval = setInterval(function() {
+            var div = document.querySelector("#counter");
+            var count = div.textContent * 1 - 1;
+            div.textContent = count;
+            if (count == 0) {
+                clearInterval(interval);
+                window.location.href = '@Url.Action("Index", "Home")';
+            }
+    }, 1000);
+
+    /*window.setTimeout(function () {
+        window.location.href = 'your URL';
+    }, 4000);
+    */
+</script>
