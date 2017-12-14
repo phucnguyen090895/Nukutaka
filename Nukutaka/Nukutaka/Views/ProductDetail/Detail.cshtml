@@ -30,10 +30,19 @@
                     <input type="number" id="iQuantity" name="iQuantity" min="1" value="1"/>
                     <input type="hidden" id="code"name="code" value="@Model.CODE" />
                     <input type="hidden" id="urlCurrent" name="urlCurrent" value="@Request.Url.ToString()" />
+                @if (Model.INSTOCK == 0)
+                {
+                    <button type="button" class="btn btn-fefault cart">
+                        Hết hàng
+                    </button>
+                }
+                else
+                {
                     <button type="submit" class="btn btn-fefault cart">
                         <i class="fa fa-shopping-cart"></i>
                         Thêm vào giỏ
-                    </button>                          
+                    </button>
+                }                           
             </span>
         }
             <p><b>Thời trang:</b> @ViewBag.CategoryName</p>

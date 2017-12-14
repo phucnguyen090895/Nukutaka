@@ -21,29 +21,44 @@
                     <div class="single-products">
                         <div class="productinfo text-center">
                             <a href="@Url.Action("Detail", "ProductDetail", new {@id = item.ID})">
-                                <img src="~/images/products/@item.IMAGEURL" alt="@item.NAME" height="249" width="268" />
+                                <div style="height:249px; width:268px">
+                                    <div class="hovereffect">
+                                        <img class="img-responsive" src="~/images/products/@item.IMAGEURL" alt="@item.NAME" />
+                                        <div class="overlay">
+                                            <p>@item.NAME</p>
+                                            <h5></h5>
+                                            <p>Xem chi tiết</p>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <h2>@String.Format("{0:0,0}", @item.PRICE)</h2>
                                 <p>@item.NAME</p>
                             </a>
-                            @using (Html.BeginForm("AddCart", "Cart"))
+                            @if (item.INSTOCK == 0)
                             {
-                                <input type="hidden" id="iQuantity" name="iQuantity" min="1" value="1" />
+                                <button type="button" class="btn btn-default add-to-cart">
+                                    Hết hàng
+                                </button>
+                            }
+                            else
+                            {
+                                using (Html.BeginForm("AddCart", "Cart"))
+                                {
+                                    <input type="hidden" id="iQuantity" name="iQuantity" min="1" value="1" />
                                     <input type="hidden" id="code" name="code" value="@item.CODE" />
                                     <input type="hidden" id="urlCurrent" name="urlCurrent" value="@Request.Url.ToString()" />
                                     <button type="submit" href="#" class="btn btn-default add-to-cart">
                                         <i class="fa fa-shopping-cart"></i>
                                         Thêm vào giỏ
                                     </button>
-                            }      
-
+                                }
+                            }
                         </div>
-
-                    </div>
-                    <div class="choose">
-                        <ul class="nav nav-pills nav-justified">
-                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                            <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                        </ul>
+                        @if (item.STATUS == 1)
+                        {
+                            <img src="~/images/home/new.png" class="new" alt="" />
+                        }
                     </div>
                 </div>
             </div>
