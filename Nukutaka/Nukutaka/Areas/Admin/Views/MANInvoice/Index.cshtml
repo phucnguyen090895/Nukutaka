@@ -50,12 +50,12 @@
                                     <td onclick="window.location='@Url.Action("UpdateInvoice", new {id = item.ID })'">@item.NAMECUSTOMER</td>
                                     <td onclick="window.location='@Url.Action("UpdateInvoice", new {id = item.ID })'">@item.PHONECUSTOMER</td>
                                     <td onclick="window.location='@Url.Action("UpdateInvoice", new {id = item.ID })'">@item.ADDRESS</td>
-                                    <td onclick="window.location='@Url.Action("UpdateInvoice", new {id = item.ID })'">@string.Format("{0:dd-MM-yyyy}", item.ORDERDATE)</td>
-                                    <td onclick="window.location='@Url.Action("UpdateInvoice", new {id = item.ID })'">@string.Format("{0:dd-MM-yyyy}", item.SHIPPINGDATE)</td>
-                                    <td onclick="window.location='@Url.Action("UpdateInvoice", new {id = item.ID })'">@string.Format("{0:dd-MM-yyyy}", item.DELIVERYDATE)</td>
+                                    <td onclick="window.location='@Url.Action("UpdateInvoice", new {id = item.ID })'">@string.Format("{0:dd/MM/yyyy}", item.ORDERDATE)</td>
+                                    <td onclick="window.location='@Url.Action("UpdateInvoice", new {id = item.ID })'">@string.Format("{0:dd/MM/yyyy}", item.SHIPPINGDATE)</td>
+                                    <td onclick="window.location='@Url.Action("UpdateInvoice", new {id = item.ID })'">@string.Format("{0:dd/MM/yyyy}", item.DELIVERYDATE)</td>
                                     <td onclick="window.location='@Url.Action("UpdateInvoice", new {id = item.ID })'">@item.SHIPPER</td>
-                                    <td onclick="window.location='@Url.Action("UpdateInvoice", new {id = item.ID })'">@item.STATUS</td>
-                                    <td onclick="window.location='@Url.Action("UpdateInvoice", new {id = item.ID })'">@item.TYPE</td>
+                                    <td onclick="window.location='@Url.Action("UpdateInvoice", new {id = item.ID })'">@(item.STATUS==0? "Không hợp lệ": item.STATUS == 1 ? "Hợp lệ" : item.STATUS == 2 ? "Đang vận chuyển": "Đã nhận hàng")</td>
+                                    <td onclick="window.location='@Url.Action("UpdateInvoice", new {id = item.ID })'">@(item.TYPE==0? "Truyền thống" : "Trực tuyến")</td>
                                     <td>
                                         <a class="glyphicon glyphicon-remove" data-toggle="modal" data-target="#@item.ID" onclick="deleteStart(this)">
                                         </a>

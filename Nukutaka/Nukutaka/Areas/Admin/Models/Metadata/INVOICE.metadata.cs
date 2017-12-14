@@ -25,13 +25,15 @@ namespace Nukutaka.Models
             public string ADDRESS { get; set; }
 
             [DisplayName("NGÀY ĐẶT HÀNG")]
-            [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+            [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
             public Nullable<System.DateTime> ORDERDATE { get; set; }
 
             [DisplayName("NGÀY CHUYỂN HÀNG")]
+            //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
             public Nullable<System.DateTime> SHIPPINGDATE { get; set; }
 
             [DisplayName("NGÀY NHẬN HÀNG")]
+            //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
             public Nullable<System.DateTime> DELIVERYDATE { get; set; }
 
             [DisplayName("NGƯỜI VẬN CHUYỂN")]

@@ -1,4 +1,6 @@
 ﻿@using Nukutaka.Models
+@using Newtonsoft.Json
+@using Nukutaka.Areas.Admin.Models
 @model INVOICE
 @{
     ViewBag.Title = "SuccessPayment";
@@ -21,6 +23,36 @@
             <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" type="text" placeholder="Xã/Phường" name="txtXaphuong">
             <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" type="text" placeholder="Thị xã/Thành phố" name="txtThixa">
             <input style="background: #F0F0E9; border: 0 none;margin-bottom: 10px;padding: 10px;width: 100%;font-weight: 300;" type="text" placeholder="Tỉnh" name="txtTinh">
+        </div>
+        <div class="col-sm-12">
+            <h4>Danh sách sản phẩm</h4>
+            @{
+                NukutakaEntities db = new NukutakaEntities();
+                var list = JsonConvert.DeserializeObject<List<ListProduct>>(Model.PRODUCT);
+                int total = 0;
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var obj in list)
+                        {
+                            total += (obj.quantity * Convert.ToInt32(obj.price));
+                            <tr>
+                                <td>@db.PRODUCTS.Single(n=>n.CODE == obj.code).NAME</td>
+                                <td>@obj.quantity</td>
+                                <td>@obj.price</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                    <span>Tổng tiền : @total đ</span>
+            }
+
         </div>
         <div class="col-sm-12">
             <p>
